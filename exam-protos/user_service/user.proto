@@ -1,0 +1,100 @@
+syntax = "proto3";
+
+package user;
+
+import "google/protobuf/empty.proto";
+
+message User {
+    string id = 1;
+    string username = 2;
+    string email = 3;
+    string password = 4;
+    string first_name = 5;
+    string last_name = 6;
+    string bio = 7;
+    string website = 8;
+    string created_at = 9;
+    string updated_at = 10;
+    bool is_active = 11;
+    string refresh_token = 12;
+}
+
+message GetRequest {
+    string user_id = 1;
+    string email = 2;
+    string username = 3;
+}
+
+message GetListFilter {
+  int64 page = 1;
+  int64 limit = 2;
+  string orderBy = 3;
+  bool is_active = 4;
+}
+
+message CheckFieldReq {
+    string field = 1;
+    string value = 2;
+}
+
+message Status {
+    bool status = 1;
+}
+
+message UpdateRefreshReq {
+    string user_id = 1;
+    string refresh_token = 2;
+}
+
+message Comment {
+  string id = 1;
+  string post_id = 2;
+  string user_id = 3;
+  string content = 4;
+  string created_at = 5;
+  string updated_at = 6;
+  User owner = 7;
+}
+
+message Post {
+  string id = 1;
+  string user_id = 2;
+  string content = 3;
+  string title = 4;
+  int64 likes = 5;
+  int64 dislikes = 6;
+  int64 views = 7;
+  string category = 8;
+  string created_at = 9;
+  string updated_at = 10;
+  repeated Comment comments = 11;
+}
+
+message UserModel {
+    string id = 1;
+    string username = 2;
+    string email = 3;
+    string password = 4;
+    string first_name = 5;
+    string last_name = 6;
+    string bio = 7;
+    string website = 8;
+    string created_at = 9;
+    string updated_at = 10;
+    bool is_active = 11;
+    string refresh_token = 12;
+    repeated Post posts = 13;
+}
+
+message Users {
+    int64 count = 1;
+    repeated UserModel users = 2;
+}
+
+service UserService {
+  rpc Create(User) returns (User);
+  rpc Update(User) returns (User);
+  rpc Get(GetRequest) returns (UserModel);
+  rpc Delete(GetRequest) returns (google.protobuf.Empty);
+  rpc List(GetListFilter) returns (Users);
+}

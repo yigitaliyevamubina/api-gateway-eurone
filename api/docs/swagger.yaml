@@ -1,0 +1,234 @@
+definitions:
+  models.Message:
+    properties:
+      message:
+        type: string
+    type: object
+  models.ResponseError:
+    properties:
+      code:
+        type: string
+      message:
+        type: string
+    type: object
+  models.User:
+    properties:
+      bio:
+        example: Software engineer passionate about technology.
+        type: string
+      created_at:
+        type: string
+      email:
+        example: john@example.com
+        type: string
+      firstname:
+        example: John
+        type: string
+      id:
+        example: uuid
+        type: string
+      is_active:
+        example: true
+        type: boolean
+      lastname:
+        example: Doe
+        type: string
+      password:
+        example: hashedpassword123
+        type: string
+      refresh_token:
+        example: somerandomrefresh123
+        type: string
+      updated_at:
+        type: string
+      username:
+        example: john_doe
+        type: string
+      website:
+        example: https://johndoe.com
+        type: string
+    type: object
+  models.Users:
+    properties:
+      count:
+        type: integer
+      users:
+        items:
+          $ref: '#/definitions/models.User'
+        type: array
+    type: object
+info:
+  contact: {}
+paths:
+  /v1/user/create:
+    post:
+      consumes:
+      - application/json
+      description: Create user
+      parameters:
+      - description: user info
+        in: body
+        name: user-info
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      security:
+      - ApiKeyAuth: []
+      summary: Create user
+      tags:
+      - User
+  /v1/user/delete/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete user
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Message'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete user
+      tags:
+      - User
+  /v1/user/get/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get user
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      security:
+      - ApiKeyAuth: []
+      summary: Get user
+      tags:
+      - User
+  /v1/user/update/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Update user
+      parameters:
+      - description: user id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: user info
+        in: body
+        name: user-info
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      security:
+      - ApiKeyAuth: []
+      summary: Update user
+      tags:
+      - User
+  /v1/user/users:
+    get:
+      consumes:
+      - application/json
+      description: List users
+      parameters:
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: order_by
+        type: string
+      - in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Users'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      security:
+      - ApiKeyAuth: []
+      summary: List users
+      tags:
+      - User
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

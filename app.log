@@ -1,0 +1,28 @@
+{"level":"info","ts":1713350498.2768497,"caller":"app/main.go:29","msg":"Listen: ","address":"localhost:50060"}
+{"level":"info","ts":1713357045.598578,"caller":"app/main.go:29","msg":"Listen: ","address":"localhost:50060"}
+{"level":"info","ts":1713357052.8189893,"caller":"app/main.go:40","msg":"api gateway stops"}
+{"level":"error","ts":1713357052.819307,"caller":"app/main.go:31","msg":"app run","error":"http: Server closed"}
+{"level":"info","ts":1713357353.8317106,"caller":"app/main.go:29","msg":"Listen: ","address":"localhost:50060"}
+{"level":"info","ts":1713357411.4766335,"caller":"app/main.go:40","msg":"api gateway stops"}
+{"level":"error","ts":1713357411.4776745,"caller":"app/main.go:31","msg":"app run","error":"http: Server closed"}
+{"level":"info","ts":1713357466.326376,"caller":"app/main.go:29","msg":"Listen: ","address":"localhost:50060"}
+{"level":"info","ts":1713357518.3649013,"caller":"app/main.go:40","msg":"api gateway stops"}
+{"level":"error","ts":1713357518.3663874,"caller":"app/main.go:31","msg":"app run","error":"http: Server closed"}
+{"level":"info","ts":1713357590.5848074,"caller":"app/main.go:29","msg":"Listen: ","address":"localhost:50060"}
+{"level":"info","ts":1713357628.8434434,"caller":"app/main.go:40","msg":"api gateway stops"}
+{"level":"error","ts":1713357628.8441727,"caller":"app/main.go:31","msg":"app run","error":"http: Server closed"}
+{"level":"info","ts":1713357737.126179,"caller":"app/main.go:29","msg":"Listen: ","address":"localhost:50060"}
+{"level":"info","ts":1713357739.4644368,"caller":"app/main.go:40","msg":"api gateway stops"}
+{"level":"error","ts":1713357739.4650695,"caller":"app/main.go:31","msg":"app run","error":"http: Server closed"}
+{"level":"info","ts":1713357743.372274,"caller":"app/main.go:29","msg":"Listen: ","address":"localhost:50060"}
+{"level":"info","ts":1713357775.0449817,"caller":"app/main.go:40","msg":"api gateway stops"}
+{"level":"error","ts":1713357775.0458279,"caller":"app/main.go:31","msg":"app run","error":"http: Server closed"}
+{"level":"info","ts":1713357979.8974373,"caller":"app/main.go:29","msg":"Listen: ","address":"localhost:50060"}
+{"level":"info","ts":1713358035.9878347,"caller":"app/main.go:40","msg":"api gateway stops"}
+{"level":"error","ts":1713358035.9886258,"caller":"app/main.go:31","msg":"app run","error":"http: Server closed"}
+{"level":"info","ts":1713358041.6260955,"caller":"app/main.go:29","msg":"Listen: ","address":"localhost:50060"}
+{"level":"info","ts":1713358235.75761,"caller":"app/main.go:40","msg":"api gateway stops"}
+{"level":"error","ts":1713358235.759248,"caller":"app/main.go:31","msg":"app run","error":"http: Server closed"}
+{"level":"info","ts":1713358279.3422215,"caller":"app/main.go:29","msg":"Listen: ","address":"localhost:50060"}
+{"level":"info","ts":1713358420.9158275,"caller":"app/main.go:40","msg":"api gateway stops"}
+{"level":"error","ts":1713358420.9168773,"caller":"app/main.go:31","msg":"app run","error":"http: Server closed"}
