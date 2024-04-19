@@ -6,6 +6,7 @@ import (
 	grpserviceclient "fourth-exam/api_gateway_evrone/internal/infrastructure/grp_service_client"
 	"fourth-exam/api_gateway_evrone/internal/infrastructure/repository/redis"
 	"fourth-exam/api_gateway_evrone/internal/pkg/config"
+	"fourth-exam/api_gateway_evrone/internal/usecase/event"
 	"time"
 
 	"github.com/casbin/casbin/v2"
@@ -23,6 +24,7 @@ type HandlerOption struct {
 	Enforcer *casbin.CachedEnforcer
 	Cache redis.Cache
 	Service grpserviceclient.ServiceClient
+	BrokerProducer event.BrokerProducer
 }
 
 type BaseHandler struct {

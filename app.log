@@ -26,3 +26,21 @@
 {"level":"info","ts":1713358279.3422215,"caller":"app/main.go:29","msg":"Listen: ","address":"localhost:50060"}
 {"level":"info","ts":1713358420.9158275,"caller":"app/main.go:40","msg":"api gateway stops"}
 {"level":"error","ts":1713358420.9168773,"caller":"app/main.go:31","msg":"app run","error":"http: Server closed"}
+{"level":"info","ts":1713510742.1132874,"caller":"app/main.go:29","msg":"Listen: ","address":"localhost:50060"}
+{"level":"info","ts":1713510807.3160827,"caller":"app/main.go:40","msg":"api gateway stops"}
+{"level":"error","ts":1713510807.3274088,"caller":"app/main.go:31","msg":"app run","error":"http: Server closed"}
+{"level":"info","ts":1713510823.8868897,"caller":"app/main.go:29","msg":"Listen: ","address":"localhost:50060"}
+{"level":"info","ts":1713510898.3210812,"caller":"app/main.go:40","msg":"api gateway stops"}
+{"level":"error","ts":1713510898.33936,"caller":"app/main.go:31","msg":"app run","error":"http: Server closed"}
+{"level":"info","ts":1713510919.797568,"caller":"app/main.go:29","msg":"Listen: ","address":"localhost:50060"}
+{"level":"info","ts":1713510935.5819144,"caller":"kafka/producer.go:34","msg":"kafka userCreated message{partition 11 0  <nil>} {offset 11 0  <nil>} {key 15 0 api.user.created <nil>} {value 15 0 \n$8188fa5d-1800-4a0d-ba03-ef200308b0a8\u0012\u0008john_doe\u001a\u0010john@example.com\"\u0011hashedpassword123*\u0004John2\u0003Doe:.Software engineer passionate about technology.B\u0013https://johndoe.comX\u0001b\u0014somerandomrefresh123 <nil>}"}
+{"level":"info","ts":1713510996.6081514,"caller":"app/main.go:40","msg":"api gateway stops"}
+{"level":"error","ts":1713510996.6203554,"caller":"app/main.go:31","msg":"app run","error":"http: Server closed"}
+{"level":"info","ts":1713511011.1858172,"caller":"app/main.go:29","msg":"Listen: ","address":"localhost:50060"}
+{"level":"info","ts":1713511013.7183154,"caller":"kafka/producer.go:34","msg":"kafka userCreated message{partition 11 0  <nil>} {offset 11 1  <nil>} {key 15 0 api.user.created <nil>} {value 15 0 \n$4d2aa168-55f3-49f6-a47e-aec8aa454330\u0012\u0008john_doe\u001a\u0010john@example.com\"\u0011hashedpassword123*\u0004John2\u0003Doe:.Software engineer passionate about technology.B\u0013https://johndoe.comX\u0001b\u0014somerandomrefresh123 <nil>}"}
+{"level":"info","ts":1713511019.6819441,"caller":"app/main.go:40","msg":"api gateway stops"}
+{"level":"error","ts":1713511019.6826088,"caller":"app/main.go:31","msg":"app run","error":"http: Server closed"}
+{"level":"info","ts":1713514319.9212062,"caller":"app/main.go:29","msg":"Listen: ","address":"localhost:50060"}
+{"level":"info","ts":1713514349.8369746,"caller":"kafka/producer.go:34","msg":"kafka userCreated message{partition 11 0  <nil>} {offset 11 2  <nil>} {key 15 0 api.user.created <nil>} {value 15 0 \n$09134c16-8bd8-42ec-909c-9cb0b5e9c71e\u0012\u0008john_doe\u001a\u0010john@example.com\"\u0011hashedpassword123*\u0004John2\u0003Doe:.Software engineer passionate about technology.B\u0013https://johndoe.comX\u0001b\u0014somerandomrefresh123 <nil>}"}
+{"level":"info","ts":1713514367.828452,"caller":"app/main.go:40","msg":"api gateway stops"}
+{"level":"error","ts":1713514367.84673,"caller":"app/main.go:31","msg":"app run","error":"http: Server closed"}

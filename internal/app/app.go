@@ -5,28 +5,30 @@ import (
 	"fmt"
 	"fourth-exam/api_gateway_evrone/api"
 	grpserviceclient "fourth-exam/api_gateway_evrone/internal/infrastructure/grp_service_client"
+	"fourth-exam/api_gateway_evrone/internal/infrastructure/kafka"
+	redisrepo "fourth-exam/api_gateway_evrone/internal/infrastructure/repository/redis"
 	"fourth-exam/api_gateway_evrone/internal/pkg/config"
 	"fourth-exam/api_gateway_evrone/internal/pkg/logger"
 	"fourth-exam/api_gateway_evrone/internal/pkg/policy"
 	"fourth-exam/api_gateway_evrone/internal/pkg/postgres"
 	"fourth-exam/api_gateway_evrone/internal/pkg/redis"
+	"fourth-exam/api_gateway_evrone/internal/usecase/event"
 	"net/http"
 	"time"
-	redisrepo "fourth-exam/api_gateway_evrone/internal/infrastructure/repository/redis"
-
 
 	"github.com/casbin/casbin/v2"
 	"go.uber.org/zap"
 )
 
 type App struct {
-	Config   *config.Config
-	Logger   *zap.Logger
-	DB       *postgres.PostgresDB
-	RedisDB  *redis.RedisDB
-	server   *http.Server
-	Enforcer *casbin.CachedEnforcer
-	Clients  grpserviceclient.ServiceClient
+	Config         *config.Config
+	Logger         *zap.Logger
+	DB             *postgres.PostgresDB
+	RedisDB        *redis.RedisDB
+	server         *http.Server
+	Enforcer       *casbin.CachedEnforcer
+	Clients        grpserviceclient.ServiceClient
+	BrokerProducer event.BrokerProducer
 }
 
 func NewApp(cfg config.Config) (*App, error) {
@@ -35,6 +37,9 @@ func NewApp(cfg config.Config) (*App, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	// kafka producer init
+	kafkaProducer := kafka.NewProducer(&cfg, logger)
 
 	// postgres init
 	db, err := postgres.New(&cfg)
@@ -57,11 +62,12 @@ func NewApp(cfg config.Config) (*App, error) {
 	enforcer.SetCache(policy.NewCache(&redisdb.Client))
 
 	return &App{
-		Config:   &cfg,
-		Logger:   logger,
-		DB:       db,
-		RedisDB:  redisdb,
-		Enforcer: enforcer,
+		Config:         &cfg,
+		Logger:         logger,
+		DB:             db,
+		RedisDB:        redisdb,
+		Enforcer:       enforcer,
+		BrokerProducer: kafkaProducer,
 	}, nil
 }
 
@@ -88,6 +94,7 @@ func (a *App) Run() error {
 		Cache:          cache,
 		Enforcer:       a.Enforcer,
 		Service:        clients,
+		BrokerProducer: a.BrokerProducer,
 	})
 	if err = a.Enforcer.LoadPolicy(); err != nil {
 		return fmt.Errorf("error during enforcer load policy: %w", err)
@@ -109,6 +116,9 @@ func (a *App) Stop() {
 
 	// close grpc connections
 	a.Clients.Close()
+
+	// kafka producer close
+	a.BrokerProducer.Close()
 
 	// shutdown server http
 	if err := a.server.Shutdown(context.Background()); err != nil {

@@ -15,7 +15,7 @@ build:
 # build for linux amd64
 .PHONY: build-linux
 build-linux:
-	CGO_ENABLED=0 GOARCH="amd64" GOOS=linux go build -ldflags="-s -w" -o ./bin/${APP} ${CMD_DIR}/app/main.go
+	CGO_ENABLED=0 GOARCH="amd64" GOOS=linux go bu ild -ldflags="-s -w" -o ./bin/${APP} ${CMD_DIR}/app/main.go
 
 # run service
 .PHONY: run

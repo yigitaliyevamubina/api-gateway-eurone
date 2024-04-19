@@ -9,6 +9,7 @@ import (
 	pb "fourth-exam/api_gateway_evrone/genproto/user_service"
 	grpserviceclient "fourth-exam/api_gateway_evrone/internal/infrastructure/grp_service_client"
 	"fourth-exam/api_gateway_evrone/internal/pkg/config"
+	"fourth-exam/api_gateway_evrone/internal/usecase/event"
 
 	"net/http"
 	"strconv"
@@ -26,6 +27,7 @@ type userHandler struct {
 	config   *config.Config
 	service  grpserviceclient.ServiceClient
 	enforcer *casbin.CachedEnforcer
+	producer event.BrokerProducer
 }
 
 func NewUserHandler(option *handlers.HandlerOption) http.Handler {
@@ -34,6 +36,7 @@ func NewUserHandler(option *handlers.HandlerOption) http.Handler {
 		config:   option.Config,
 		service:  option.Service,
 		enforcer: option.Enforcer,
+		producer: option.BrokerProducer,
 	}
 
 	handler.Cache = option.Cache
@@ -93,7 +96,7 @@ func (h *userHandler) Create() http.HandlerFunc {
 		}
 		user.Id = uuid.New().String()
 
-		_, err = h.service.UserService().Create(ctx, &pb.User{
+		userProto := &pb.User{
 			Id:           user.Id,
 			Username:     user.Username,
 			FirstName:    user.FirstName,
@@ -104,11 +107,19 @@ func (h *userHandler) Create() http.HandlerFunc {
 			Website:      user.Website,
 			IsActive:     user.IsActive,
 			RefreshToken: user.RefreshToken,
-		})
+		}
+
+		err = h.producer.ProduceUserInfoToKafka(ctx, "api.user.created", userProto)
 		if err != nil {
 			render.Render(w, r, er.Error(err))
 			return
 		}
+
+		// _, err = h.service.UserService().Create(ctx, userProto)
+		// if err != nil {
+		// 	render.Render(w, r, er.Error(err))
+		// 	return
+		// }
 
 		render.JSON(w, r, user)
 	}

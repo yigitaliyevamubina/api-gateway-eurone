@@ -2,6 +2,7 @@ package config
 
 import (
 	"os"
+	"strings"
 	"time"
 )
 
@@ -41,6 +42,12 @@ type Config struct {
 		Port     string
 		Password string
 		Name     string
+	}
+	Kafka struct {
+		Address []string
+		Topic   struct {
+			UserService string
+		}
 	}
 	Token struct {
 		Secret     string
@@ -98,6 +105,10 @@ func NewConfig() (*Config, error) {
 	}
 	config.Token.AccessTTL = accessTTl
 	config.Token.RefreshTTL = refreshTTL
+
+	// kafka configuration
+	config.Kafka.Address = strings.Split(getEnv("KAFKA_ADDRESS", "localhost:9092"), ",")
+	config.Kafka.Topic.UserService = getEnv("KAFKA_TOPIC_USER_SERVICE", "user.service.create")
 
 	return &config, nil
 }
