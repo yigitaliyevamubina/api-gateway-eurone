@@ -2,6 +2,7 @@ package kafka
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"fourth-exam/api_gateway_evrone/internal/pkg/config"
 
@@ -52,7 +53,11 @@ func (p *producer) buildMessage(key string, value []byte) kafka.Message {
 }
 
 func (p *producer) ProduceUserInfoToKafka(ctx context.Context, key string, body *pb.User) error {
-	data, err := body.Marshal()
+	// data, err := body.Marshal()
+	// if err != nil {
+	// 	return err
+	// }
+	data, err := json.Marshal(body)
 	if err != nil {
 		return err
 	}
@@ -61,7 +66,6 @@ func (p *producer) ProduceUserInfoToKafka(ctx context.Context, key string, body 
 	message := p.buildMessage(key, data)
 
 	return p.userService.WriteMessages(ctx, message)
-
 }
 
 func (p *producer) Close() {
