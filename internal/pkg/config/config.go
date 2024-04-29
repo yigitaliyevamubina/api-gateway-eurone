@@ -54,7 +54,8 @@ type Config struct {
 		AccessTTL  time.Duration
 		RefreshTTL time.Duration
 	}
-	UserService webAddress
+	UserService   webAddress
+	OTLPCollector webAddress
 }
 
 func NewConfig() (*Config, error) {
@@ -105,6 +106,10 @@ func NewConfig() (*Config, error) {
 	}
 	config.Token.AccessTTL = accessTTl
 	config.Token.RefreshTTL = refreshTTL
+
+	// otlp collector configuration
+	config.OTLPCollector.Host = getEnv("OTLP_COLLECTOR_HOST", "localhost")
+	config.OTLPCollector.Port = getEnv("OTLP_COLLECTOR_PORT", ":4317")
 
 	// kafka configuration
 	config.Kafka.Address = strings.Split(getEnv("KAFKA_ADDRESS", "localhost:9092"), ",")

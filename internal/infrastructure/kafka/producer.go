@@ -53,10 +53,6 @@ func (p *producer) buildMessage(key string, value []byte) kafka.Message {
 }
 
 func (p *producer) ProduceUserInfoToKafka(ctx context.Context, key string, body *pb.User) error {
-	// data, err := body.Marshal()
-	// if err != nil {
-	// 	return err
-	// }
 	data, err := json.Marshal(body)
 	if err != nil {
 		return err

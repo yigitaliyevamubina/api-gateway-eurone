@@ -48,6 +48,7 @@ func NewRoute(option RouteOption) http.Handler {
 	router := chi.NewRouter()
 	router.Use(chimiddleware.RealIP, chimiddleware.Logger, chimiddleware.Recoverer)
 	router.Use(chimiddleware.Timeout(option.ContextTimeout))
+	router.Use(middleware.Tracing) // tracing
 	router.Use(cors.Handler(cors.Options{
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token", "X-Request-Id"},
